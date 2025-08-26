@@ -1,5 +1,5 @@
 {
-  "name": "GitIssueHunt-v2",
+  "name": "git-issue-huntv2",
   "private": true,
   "scripts": {
     "build": "turbo run build",
