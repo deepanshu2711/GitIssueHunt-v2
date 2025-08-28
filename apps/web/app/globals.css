@@ -2,4 +2,4 @@
 @import "@repo/tailwind-config";
 @import "@repo/ui/styles.css";
 
-@source "../../../packages/ui/src/*.tsx";
+@source "../../../packages/ui/src/**/*.tsx";

@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "exports": {
-    "./*": "./src/*.tsx",
+    "./components/*": "./src/components/*.tsx",
     "./styles.css": "./src/styles.css"
   },
   "scripts": {
@@ -15,7 +15,6 @@
     "@repo/eslint-config": "*",
     "@repo/tailwind-config": "^0.0.0",
     "@repo/typescript-config": "*",
-    "@repo/ui": "^0.0.0",
     "@types/node": "^22.15.3",
     "@types/react": "19.1.0",
     "@types/react-dom": "19.1.1",
@@ -23,6 +22,7 @@
     "typescript": "5.9.2"
   },
   "dependencies": {
+    "@radix-ui/react-slot": "^1.2.3",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   }
