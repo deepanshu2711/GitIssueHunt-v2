@@ -9,5 +9,5 @@ app.get("/", (req, res) => {
 });
 
 app.listen(5000, () => {
-  console.log(`🚀 API running at http://localhost:${500}`);
+  console.log(`🚀 API running at http://localhost:${5000}`);
 });
