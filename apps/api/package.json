@@ -19,6 +19,9 @@
     "typescript": "^5.9.2"
   },
   "dependencies": {
-    "express": "^5.1.0"
+    "@types/mongoose": "^5.11.96",
+    "express": "^5.1.0",
+    "mongoose": "^8.18.0",
+    "zod": "^4.1.5"
   }
 }
