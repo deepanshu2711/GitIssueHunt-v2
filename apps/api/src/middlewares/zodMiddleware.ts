@@ -8,6 +8,7 @@ export const validate =
     try {
       const parsed = schema.parse(req[property]);
       req[property] = parsed;
+      next();
     } catch (e) {
       if (e instanceof ZodError) {
         errorResponse(res, e.message);
