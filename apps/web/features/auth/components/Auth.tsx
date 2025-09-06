@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@repo/ui/components/shadcn/button";
 import {
   Card,
@@ -7,6 +8,7 @@ import {
   CardTitle,
 } from "@repo/ui/components/shadcn/card";
 import { Bug, Github, Search, Trophy } from "lucide-react";
+import { signIn } from "next-auth/react";
 
 const Auth = () => {
   return (
@@ -36,6 +38,7 @@ const Auth = () => {
           <CardContent className="space-y-6">
             <Button
               // onClick={handleGitHubSignIn}
+              onClick={() => signIn("github", { callbackUrl: "/issues" })}
               className="w-full cursor-pointer bg-gray-800 hover:bg-gray-700 text-white border border-gray-700 h-12 text-base font-medium transition-all duration-200 hover:border-emerald-500"
             >
               <Github className="mr-3 h-5 w-5" />
