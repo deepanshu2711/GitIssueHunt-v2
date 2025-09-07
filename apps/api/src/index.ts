@@ -10,7 +10,7 @@ const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "https://git-issue-hunt-v2-web-jlwu.vercel.app",
     credentials: true,
   }),
 );
