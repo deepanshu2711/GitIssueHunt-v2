@@ -1,5 +1,9 @@
-import { Button } from "@repo/ui/components/shadcn/button";
+import { Landing } from "@web/features/landing";
 
 export default function Home() {
-  return <Button variant={"default"}>Open Alert</Button>;
+  return (
+    <>
+      <Landing />
+    </>
+  );
 }

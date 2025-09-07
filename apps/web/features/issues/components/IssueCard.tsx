@@ -12,7 +12,7 @@ interface IssueCardProps {
 
 export const IssueCard = ({ item }: IssueCardProps) => {
   return (
-    <Card className="border-[1px] relative  text-gray-800  transition-all">
+    <Card className="border-[1px] relative  transition-all">
       <CardContent className="flex flex-col gap-1">
         <div className="flex items-center gap-3">
           <Image

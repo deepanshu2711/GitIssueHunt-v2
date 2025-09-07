@@ -1,3 +1,4 @@
+import api from "@web/lib/api";
 import NextAuth from "next-auth";
 import Github from "next-auth/providers/github";
 
@@ -13,16 +14,25 @@ const handler = NextAuth({
   },
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    signIn: ({ user, account }) => {
-      //TODO: do some db operation here
+    signIn: async ({ user, account }) => {
+      await api.post("/auth", {
+        email: user.email!,
+        userName: user.name!,
+        name: user.name!,
+        avatarUrl: user.image!,
+        githubId: account?.providerAccountId,
+        githubAccessToken: account?.access_token,
+      });
       return true;
     },
     jwt: ({ token, user, account }) => {
-      //TODO: add additional required fileds
+      if (account && user) {
+        token.accessToken = account.access_token;
+        token.githubId = account.providerAccountId;
+      }
       return token;
     },
     async session({ session, token }) {
-      //TODO: add required fileds from token to session
       return session;
     },
     async redirect({ baseUrl }) {

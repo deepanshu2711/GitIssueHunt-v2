@@ -55,7 +55,7 @@ const Issues = () => {
           ))}
         </div>
       )}
-      <Pagination className="text-gray-300">
+      <Pagination>
         <PaginationContent>
           <PaginationItem>
             <PaginationPrevious
@@ -74,7 +74,7 @@ const Issues = () => {
                   e.preventDefault();
                   setPage(p);
                 }}
-                className={`${page === p ? "bg-green-900" : ""} rounded-md`}
+                className={`${page === p ? "!bg-lime-600" : ""} rounded-md`}
               >
                 {p}
               </PaginationLink>
