@@ -12,7 +12,17 @@ import {
   PaginationLink,
   PaginationPrevious,
 } from "@repo/ui/components/shadcn/pagination";
+
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@repo/ui/components/shadcn/select";
 import { useMemo, useState } from "react";
+import { options } from "../constants";
 
 const Issues = () => {
   const [page, setPage] = useState(1);
@@ -41,6 +51,34 @@ const Issues = () => {
         heading="Explore GitHub Issues"
         description="Stay updated with the latest issues and activity across repositories."
       />
+
+      <div className="flex items-center justify-end gap-4">
+        <Select value={label} onValueChange={(value) => setLabel(value)}>
+          <SelectTrigger className="w-[250px]  font-semibold">
+            <SelectValue placeholder="Select label" />
+          </SelectTrigger>
+          <SelectContent>
+            {options.map((opt) => (
+              <SelectItem key={opt.value} value={opt.value}>
+                {opt.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+
+        <Select value={lang} onValueChange={(value) => setLang(value)}>
+          <SelectTrigger className="w-[180px] font-semibold">
+            <SelectValue placeholder="Select language" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="javascript">JavaScript</SelectItem>
+            <SelectItem value="typescript">TypeScript</SelectItem>
+            <SelectItem value="python">Python</SelectItem>
+            <SelectItem value="java">Java</SelectItem>
+            <SelectItem value="go">Go</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
 
       {issues.length === 0 ? (
         <p className="text-center text-gray-500">
