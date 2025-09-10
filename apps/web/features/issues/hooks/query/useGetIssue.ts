@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { getIssues } from "../../services/issueService";
 import { GitHubIssuesResponse } from "../../types";
+import { IssueService } from "../../services";
 
 export const useGetIssues = (
   page: number = 1,
@@ -9,7 +9,7 @@ export const useGetIssues = (
 ) => {
   return useQuery<GitHubIssuesResponse>({
     queryKey: ["issues", page, lang, label],
-    queryFn: () => getIssues(page, lang, label),
+    queryFn: () => IssueService.getIssues(page, lang, label),
     staleTime: 5000,
   });
 };

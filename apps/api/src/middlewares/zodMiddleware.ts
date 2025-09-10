@@ -3,15 +3,17 @@ import { ZodError, type ZodObject } from "zod";
 import { errorResponse } from "../utils/responses.js";
 
 export const validate =
-  (schema: ZodObject, property: "body" | "query" | "params" = "body") =>
-  (req: Request, res: Response, next: NextFunction) => {
+  (schema: ZodObject) => (req: Request, res: Response, next: NextFunction) => {
     try {
-      const parsed = schema.parse(req[property]);
-      req[property] = parsed;
+      const parsed = schema.parse(req.body);
+      req.body = parsed;
       next();
     } catch (e) {
       if (e instanceof ZodError) {
         errorResponse(res, e.message);
+      } else {
+        console.error("Unexpected validation error:", e);
+        errorResponse(res, "Unexpected error during validation");
       }
     }
   };

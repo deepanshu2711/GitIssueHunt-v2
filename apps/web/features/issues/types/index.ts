@@ -9,8 +9,9 @@ export type Issue = {
   body: string;
   html_url: string;
   labels: Label[];
-  user: { avatar_url: string };
+  user: { avatar_url: string; login: string };
   repository_url: string;
+  number: number;
 };
 
 export type Option = {
