@@ -13,39 +13,58 @@ import {
   GitFork,
   MessageSquare,
   User,
+  CheckCircle2,
+  XCircle,
 } from "lucide-react";
 import { IssueBody } from "./IssueBody";
 import Link from "next/link";
 import { Heading } from "@web/components/Heading";
-import { div } from "framer-motion/client";
+import { getRepoName } from "@web/utils/helpers";
+import { GitHubIssue } from "../types";
 
-const IssueDetails = ({ data }) => {
-  console.log(data);
+interface IssuDetailsProps {
+  data: GitHubIssue;
+}
+
+const IssueDetails = ({ data }: IssuDetailsProps) => {
   return (
     <div className="flex flex-col gap-10">
       <Heading
         heading="GitHub Issue Details"
-        description="View complete details of the selected GitHub issue, including author, labels, comments, and repository links."
+        description="View the complete details of this GitHub issue, including author, labels, comments, and repository links."
       />
 
-      <div className="grid grid-cols-4 gap-5">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         <Card className="col-span-3">
-          <CardHeader>
-            <div className="flex flex-wrap gap-2 mb-4">
+          <CardHeader className="space-y-3">
+            <div className="flex flex-wrap gap-2">
               {data.labels.map((label) => (
                 <Badge
                   key={label.name}
-                  className={` text-black`}
-                  style={{ backgroundColor: `#${label.color}` }}
+                  className="text-xs font-medium"
+                  style={{ backgroundColor: `#${label.color}`, color: "#000" }}
                 >
                   {label.name}
                 </Badge>
               ))}
             </div>
-            <CardTitle className="text-2xl text-balance leading-tight">
-              {data.title}
-            </CardTitle>
-            <CardDescription className="flex items-center gap-4 text-muted-foreground">
+
+            <div className="flex items-center justify-between">
+              <CardTitle className="text-2xl font-semibold leading-tight text-balance">
+                {data.title}
+              </CardTitle>
+              {data.state === "open" ? (
+                <span className="flex items-center gap-1 text-green-500 text-sm">
+                  <CheckCircle2 className="h-4 w-4" /> Open
+                </span>
+              ) : (
+                <span className="flex items-center gap-1 text-red-500 text-sm">
+                  <XCircle className="h-4 w-4" /> Closed
+                </span>
+              )}
+            </div>
+
+            <CardDescription className="flex flex-wrap items-center gap-4 text-muted-foreground text-sm">
               <span className="flex items-center gap-1">
                 <User className="h-4 w-4" />
                 {data.user.login}
@@ -60,32 +79,28 @@ const IssueDetails = ({ data }) => {
               </span>
             </CardDescription>
           </CardHeader>
+
           <CardContent>
             <div className="prose prose-invert max-w-none">
-              <div className="whitespace-pre-wrap text-foreground leading-relaxed">
-                <IssueBody body={data.body} />
-              </div>
+              <IssueBody body={data.body!} />
             </div>
           </CardContent>
         </Card>
-        <Card className="max-h-52">
+
+        <Card className="h-fit">
           <CardHeader>
-            <CardTitle>Quick Actions</CardTitle>
+            <CardTitle className="text-lg">Quick Actions</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
-            <Button asChild className="w-full cursor-pointer ">
+            <Button asChild className="w-full">
               <Link href={data.html_url} target="_blank">
                 <ExternalLink className="h-4 w-4 mr-2" />
                 View on GitHub
               </Link>
             </Button>
-            <Button asChild>
+            <Button asChild variant="secondary" className="w-full">
               <Link
-                href={`https://github.com/${data.repository_url
-                  .split("/")
-                  .slice(-2)
-                  .join("/")}`}
-                className="w-full"
+                href={`https://github.com/${getRepoName(data.repository_url)}`}
                 target="_blank"
               >
                 <GitFork className="h-4 w-4 mr-2" />

@@ -4,3 +4,8 @@ export const getIssueLink = (item: Issue) => {
   const repoPath = item.repository_url.split("/").slice(-2).join("/"); // owner/repo
   return `issues/${repoPath}/${item.number}`;
 };
+
+export const getRepoName = (repoUrl: string): string => {
+  if (!repoUrl) return "";
+  return repoUrl.split("/").slice(-2).join("/");
+};
