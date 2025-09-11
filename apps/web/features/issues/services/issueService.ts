@@ -11,7 +11,6 @@ const getIssueDetails = async (
   const res = await api.get(
     `/issues/details?owner=${owner}&repo=${repo}&issueNumber=${issueId}`,
   );
-  console.log("➡️ Fetching issue from backend:");
   return res.data;
 };
 
