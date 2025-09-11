@@ -45,6 +45,8 @@ const Issues = () => {
   if (isLoading) return <PageLoader />;
   const issues = data?.items || [];
 
+  const normalizeBody = (body: string) => body.replace(/\n{3,}/g, "\n\n");
+
   return (
     <section className="w-full flex flex-col gap-10">
       <Heading
