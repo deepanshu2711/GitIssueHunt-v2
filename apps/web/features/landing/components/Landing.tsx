@@ -1,7 +1,6 @@
-"use client";
 import { Badge } from "@repo/ui/components/shadcn/badge";
-import { Button } from "@repo/ui/components/shadcn/button";
 import { Card, CardContent } from "@repo/ui/components/shadcn/card";
+import { Navbar } from "@web/components/Navbar";
 import {
   Github,
   Search,
@@ -12,33 +11,14 @@ import {
   Code,
   Heart,
 } from "lucide-react";
-import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
+import { CtaSection } from "./CtaSection";
 
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-background text-foreground">
-      {/* Header */}
-      <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-              <Search className="w-5 h-5 text-primary-foreground" />
-            </div>
-            <span className="text-xl font-bold">GitIssueHunt</span>
-          </div>
-          <Button
-            onClick={() => signIn("github")}
-            variant="secondary"
-            className="gap-2  cursor-pointer"
-          >
-            <Github className="w-4 h-4" />
-            Sign in with GitHub
-          </Button>
-        </div>
-      </header>
-
+      <Navbar />
       {/* Hero Section */}
       <section className="py-20 px-4">
         <div className="container mx-auto text-center max-w-4xl">
@@ -60,27 +40,21 @@ export default function HomePage() {
             today!
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <Button
-              size="lg"
-              className="gap-2 bg-primary hover:bg-primary/90 text-primary-foreground cursor-pointer"
-              onClick={() => signIn("github")}
+            <Link
+              href={"/issues"}
+              className="gap-2 flex items-center px-3 py-0.5 text-sm font-medium rounded-md bg-primary hover:bg-primary/90 text-primary-foreground cursor-pointer"
             >
-              <Search className="w-5 h-5" />
+              <Search className="w-4 h-4" />
               Start Hunting Issues
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="gap-2 border-[0.5px] !border-gray-500 bg-transparent cursor-pointer"
+            </Link>
+            <Link
+              className="gap-2 flex items-center rounded-md px-3 py-2 text-sm  font-medium border-[0.5px] !border-gray-500 bg-transparent cursor-pointer"
+              href={"https://github.com/deepanshu2711/GitIssueHunt-v2"}
+              target="_blank"
             >
-              <Github className="w-5 h-5" />
-              <Link
-                href={"https://github.com/deepanshu2711/GitIssueHunt-v2"}
-                target="_blank"
-              >
-                View on GitHub
-              </Link>
-            </Button>
+              <Github className="w-4 h-4" />
+              View on Github
+            </Link>
           </div>
 
           {/* App Preview */}
@@ -253,25 +227,7 @@ export default function HomePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-4">
-        <div className="container mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Ready to Start Contributing?
-          </h2>
-          <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Join thousands of developers who are making their mark on open
-            source projects worldwide.
-          </p>
-          <Button
-            size="lg"
-            className="gap-2 bg-primary hover:bg-primary/90 text-primary-foreground cursor-pointer"
-            onClick={() => signIn("github")}
-          >
-            <Github className="w-5 h-5" />
-            Get Started with GitHub
-          </Button>
-        </div>
-      </section>
+      <CtaSection />
 
       {/* Footer */}
       <footer className="border-t border-border bg-card/50 py-12 px-4">
