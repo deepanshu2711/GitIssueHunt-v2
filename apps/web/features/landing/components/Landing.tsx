@@ -1,3 +1,4 @@
+"use client";
 import { Badge } from "@repo/ui/components/shadcn/badge";
 import { Card, CardContent } from "@repo/ui/components/shadcn/card";
 import { Navbar } from "@web/components/Navbar";
@@ -14,6 +15,8 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { CtaSection } from "./CtaSection";
+import { Button } from "@repo/ui/components/shadcn/button";
+import { signIn } from "next-auth/react";
 
 export default function HomePage() {
   return (
@@ -40,13 +43,14 @@ export default function HomePage() {
             today!
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <Link
-              href={"/issues"}
+            <Button
+              // href={"/issues"}
               className="gap-2 flex items-center px-3 py-0.5 text-sm font-medium rounded-md bg-primary hover:bg-primary/90 text-primary-foreground cursor-pointer"
+              onClick={() => signIn("github")}
             >
               <Search className="w-4 h-4" />
               Start Hunting Issues
-            </Link>
+            </Button>
             <Link
               className="gap-2 flex items-center rounded-md px-3 py-2 text-sm  font-medium border-[0.5px] !border-gray-500 bg-transparent cursor-pointer"
               href={"https://github.com/deepanshu2711/GitIssueHunt-v2"}

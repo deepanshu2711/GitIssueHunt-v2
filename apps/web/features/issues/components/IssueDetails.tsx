@@ -1,5 +1,4 @@
 import { Badge } from "@repo/ui/components/shadcn/badge";
-import { Button } from "@repo/ui/components/shadcn/button";
 import {
   Card,
   CardContent,
@@ -9,18 +8,15 @@ import {
 } from "@repo/ui/components/shadcn/card";
 import {
   Calendar,
-  ExternalLink,
-  GitFork,
   MessageSquare,
   User,
   CheckCircle2,
   XCircle,
 } from "lucide-react";
 import { IssueBody } from "./IssueBody";
-import Link from "next/link";
 import { Heading } from "@web/components/Heading";
-import { getRepoName } from "@web/utils/helpers";
 import { GitHubIssue } from "../types";
+import { QuickActions } from "./QuickActions";
 
 interface IssuDetailsProps {
   data: GitHubIssue;
@@ -87,28 +83,7 @@ const IssueDetails = ({ data }: IssuDetailsProps) => {
           </CardContent>
         </Card>
 
-        <Card className="h-fit">
-          <CardHeader>
-            <CardTitle className="text-lg">Quick Actions</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <Button asChild className="w-full">
-              <Link href={data.html_url} target="_blank">
-                <ExternalLink className="h-4 w-4 mr-2" />
-                View on GitHub
-              </Link>
-            </Button>
-            <Button asChild variant="secondary" className="w-full">
-              <Link
-                href={`https://github.com/${getRepoName(data.repository_url)}`}
-                target="_blank"
-              >
-                <GitFork className="h-4 w-4 mr-2" />
-                View Repository
-              </Link>
-            </Button>
-          </CardContent>
-        </Card>
+        <QuickActions data={data} />
       </div>
     </div>
   );

@@ -1,7 +1,10 @@
 import type { Request, Response } from "express";
 import { errorResponse, successResponse } from "../utils/responses.js";
 import * as IssuesService from "../services/issue.service.js";
-import type { GetUserDetiailsInput } from "../schemas/issues.schema.js";
+import type {
+  GetUserDetiailsInput,
+  IsSavedIssueInput,
+} from "../schemas/issues.schema.js";
 
 export const getIssues = async (req: Request, res: Response) => {
   const {
@@ -21,11 +24,31 @@ export const getIssues = async (req: Request, res: Response) => {
 
 export const getIssueDetails = async (req: Request, res: Response) => {
   try {
-    const payload = req.query as unknown as GetUserDetiailsInput;
-    console.log("payload", payload);
-    const data = await IssuesService.getIssueDetails(payload);
+    const data = await IssuesService.getIssueDetails(
+      req.query as GetUserDetiailsInput,
+    );
     return successResponse(res, data, "Issue details fetched succesfully");
   } catch (e) {
     return errorResponse(res, null, "Something went wrong");
+  }
+};
+
+export const SaveUserIssue = async (req: Request, res: Response) => {
+  try {
+    const savedIssue = await IssuesService.SaveIssue(req.body);
+    return successResponse(res, savedIssue, "Issue saved successfully");
+  } catch (e) {
+    return errorResponse(res, null, "Something went wrong");
+  }
+};
+
+export const isIssueSaved = async (req: Request, res: Response) => {
+  try {
+    const isSaved = await IssuesService.IsSavedIssue(
+      req.query as IsSavedIssueInput,
+    );
+    return successResponse(res, { saved: !!isSaved }, "Check completed");
+  } catch (e) {
+    return errorResponse(res, e, "Something went wrong");
   }
 };

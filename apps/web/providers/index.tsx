@@ -1,5 +1,10 @@
 import { TanstackQueryProvider } from "./QueryClientProvider";
+import { AuthSessionProvider } from "./SessionProvider";
 
 export const Providers = ({ children }: { children: React.ReactNode }) => {
-  return <TanstackQueryProvider>{children}</TanstackQueryProvider>;
+  return (
+    <AuthSessionProvider>
+      <TanstackQueryProvider>{children}</TanstackQueryProvider>
+    </AuthSessionProvider>
+  );
 };
