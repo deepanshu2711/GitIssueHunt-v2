@@ -104,3 +104,30 @@ export interface GitHubIssue {
   sub_issues_summary?: any;
   closed_by?: GitHubUser | null;
 }
+
+export type Repository = {
+  owner: string;
+  name: string;
+  url: string;
+};
+
+export type SaveIssue = {
+  number: number;
+  url: string;
+  title: string;
+  body?: string;
+  labels?: string[];
+  status: "open" | "closed";
+  savedAt?: Date;
+};
+
+export type SaveUserIssue = {
+  userId: string;
+  repository: Repository;
+  issue: SaveIssue;
+};
+
+export type IsSavedIssue = {
+  userId: string;
+  url: string;
+};

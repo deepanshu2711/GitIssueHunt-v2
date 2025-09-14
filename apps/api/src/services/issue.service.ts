@@ -1,5 +1,10 @@
 import axios from "axios";
-import type { GetUserDetiailsInput } from "../schemas/issues.schema.js";
+import type {
+  GetUserDetiailsInput,
+  IsSavedIssueInput,
+  SaveUserIssueInput,
+} from "../schemas/issues.schema.js";
+import { SavedIssue } from "../models/savedIssue.model.js";
 
 export const getIssues = async (query: string, page: string) => {
   const response = await axios.get(
@@ -27,4 +32,17 @@ export const getIssueDetails = async (payload: GetUserDetiailsInput) => {
 
   if (res.status !== 200) throw new Error(`GitHub API error: ${res.status}`);
   return res.data;
+};
+
+export const SaveIssue = async (payload: SaveUserIssueInput) => {
+  const savedIssue = await SavedIssue.create(payload);
+  return savedIssue;
+};
+
+export const IsSavedIssue = async (payload: IsSavedIssueInput) => {
+  const exists = await SavedIssue.findOne({
+    userId: payload.userId,
+    "issue.url": payload.url,
+  });
+  return exists;
 };
