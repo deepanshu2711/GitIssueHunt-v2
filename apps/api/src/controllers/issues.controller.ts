@@ -5,6 +5,7 @@ import type {
   GetUserDetiailsInput,
   IsSavedIssueInput,
 } from "../schemas/issues.schema.js";
+import { withRedisCache } from "../utils/withRedisCache.js";
 
 export const getIssues = async (req: Request, res: Response) => {
   const {
@@ -14,8 +15,14 @@ export const getIssues = async (req: Request, res: Response) => {
   } = req.query;
   try {
     const query = `label:"${label}"+language:${lang}+state:open+is:issue`;
-    console.log("this is query", query);
-    const issues = await IssuesService.getIssues(query, page as string);
+    const cacheKey = `issues:${label}:${lang}:${page}`;
+    const issues = await withRedisCache(
+      cacheKey,
+      () => IssuesService.getIssues(query, page as string),
+      {
+        ttlSeconds: 600,
+      },
+    );
     return successResponse(res, issues, "Issues fetched succesfully");
   } catch (e) {
     return errorResponse(res, null, "Something went wrong");
@@ -24,9 +31,16 @@ export const getIssues = async (req: Request, res: Response) => {
 
 export const getIssueDetails = async (req: Request, res: Response) => {
   try {
-    const data = await IssuesService.getIssueDetails(
-      req.query as GetUserDetiailsInput,
+    const cacheKey = `issue-details:${req.query.owner}:${req.query.repo}:${req.query.issueNumber}`;
+
+    const data = await withRedisCache(
+      cacheKey,
+      () => IssuesService.getIssueDetails(req.query as GetUserDetiailsInput),
+      {
+        ttlSeconds: 600,
+      },
     );
+
     return successResponse(res, data, "Issue details fetched succesfully");
   } catch (e) {
     return errorResponse(res, null, "Something went wrong");
