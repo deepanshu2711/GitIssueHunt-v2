@@ -22,6 +22,18 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Navbar />
+      <Link
+        href="https://www.producthunt.com/products/git-issue-hunt?embed=true&utm_source=badge-featured&utm_medium=badge&utm_source=badge-git&#0045;issue&#0045;hunt"
+        target="_blank"
+        className="fixed bottom-10 left-10"
+      >
+        <Image
+          src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1017083&theme=light&t=1758093325711"
+          alt="Git&#0032;Issue&#0032;Hunt - Find&#0032;beginner&#0045;friendly&#0032;GitHub&#0032;issues&#0032;to&#0032;contribute | Product Hunt"
+          width="250"
+          height="54"
+        />
+      </Link>
       {/* Hero Section */}
       <section className="py-20 px-4">
         <div className="container mx-auto text-center max-w-4xl">
