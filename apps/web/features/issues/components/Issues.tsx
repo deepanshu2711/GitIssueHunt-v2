@@ -16,7 +16,6 @@ import {
 import {
   Select,
   SelectContent,
-  SelectGroup,
   SelectItem,
   SelectTrigger,
   SelectValue,
@@ -44,8 +43,6 @@ const Issues = () => {
 
   if (isLoading) return <PageLoader />;
   const issues = data?.items || [];
-
-  const normalizeBody = (body: string) => body.replace(/\n{3,}/g, "\n\n");
 
   return (
     <section className="w-full flex flex-col gap-10">
@@ -87,7 +84,7 @@ const Issues = () => {
           No issues found. Try changing filters or refresh.
         </p>
       ) : (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
           {issues.map((item: Issue, idx: number) => (
             <div key={idx}>
               <IssueCard item={item} />

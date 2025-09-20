@@ -32,7 +32,7 @@ export const IssueCard = ({ item }: IssueCardProps) => {
             {item.title}
           </div>
           <p className="line-clamp-1 text-sm">{item.body}</p>
-          <div className="flex overflow-hidden items-center gap-1 mt-2">
+          <div className="flex overflow-x-scroll items-center gap-1 mt-2 no-scrollbar">
             {item.labels.map((label: Label, idx: number) => (
               <Badge key={idx} style={{ backgroundColor: `#${label.color}` }}>
                 {label.name}

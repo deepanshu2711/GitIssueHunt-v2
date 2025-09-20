@@ -2,6 +2,14 @@
 @import "@repo/tailwind-config";
 @import "@repo/ui/styles.css";
 
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
 @source "../../../packages/ui/src/**/*.tsx";
 
 :root {
