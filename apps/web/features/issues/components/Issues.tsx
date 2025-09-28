@@ -84,7 +84,7 @@ const Issues = () => {
           No issues found. Try changing filters or refresh.
         </p>
       ) : (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {issues.map((item: Issue, idx: number) => (
             <div key={idx}>
               <IssueCard item={item} />

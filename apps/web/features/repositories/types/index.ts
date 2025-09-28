@@ -3,10 +3,18 @@ export type Repo = {
   name: string;
   description: string;
   language: string;
-  stars: number;
+  stargazers_count: number;
   forks: number;
   watchers: number;
-  updatedAt: string;
+  updated_at: string;
   topics: string[];
   isPrivate: boolean;
+  owner: {
+    avatar_url: string;
+  };
+};
+
+export type GitHubRepoResponse = {
+  total_count: number;
+  items: Repo[];
 };
