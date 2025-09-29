@@ -113,7 +113,7 @@ const Issues = () => {
         <span>
           Showing {(page - 1) * 30 + 1}-
           {Math.min(page * 30, data?.total_count || 0)} of{" "}
-          {formatCount(data?.total_count)} issues
+          {formatCount(data?.total_count!)} issues
         </span>
         <span>
           Page {page} of {totalPages}
