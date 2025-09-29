@@ -28,19 +28,36 @@ const Repositories = () => {
     );
   }, [totalPages, page]);
 
+  const formatCount = (count: number) => {
+    return count?.toLocaleString() || "0";
+  };
+
   if (isLoading) return <PageLoader />;
 
   return (
     <section className="w-full flex flex-col gap-10">
       <Heading
         heading="Explore GitHub Repositories"
-        description="Search, filter, and track repositories from across the community"
+        description={`Search, filter, and track repositories from across the community • ${formatCount(data?.total_count!)} repositories available`}
       />
+
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {data?.items.map((repo, idx) => (
           <RepoCard repo={repo} key={idx} />
         ))}
       </div>
+
+      <div className="flex justify-between items-center text-sm text-gray-600">
+        <span>
+          Showing {(page - 1) * 30 + 1}-
+          {Math.min(page * 30, data?.total_count || 0)} of{" "}
+          {formatCount(data?.total_count!)} repositories
+        </span>
+        <span>
+          Page {page} of {totalPages.toLocaleString()}
+        </span>
+      </div>
+
       <Pagination>
         <PaginationContent>
           <PaginationItem>
@@ -51,7 +68,6 @@ const Repositories = () => {
               }}
             />
           </PaginationItem>
-
           {pageNumbers.map((p) => (
             <PaginationItem key={p}>
               <PaginationLink
@@ -66,7 +82,6 @@ const Repositories = () => {
               </PaginationLink>
             </PaginationItem>
           ))}
-
           <PaginationItem>
             <PaginationNext
               href="#"

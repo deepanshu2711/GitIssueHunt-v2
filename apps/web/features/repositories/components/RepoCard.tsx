@@ -2,7 +2,7 @@ import { Badge } from "@repo/ui/components/shadcn/badge";
 import { Button } from "@repo/ui/components/shadcn/button";
 import { Card, CardContent, CardHeader } from "@repo/ui/components/shadcn/card";
 import { formatDate, getLanguageColor } from "@web/utils/helpers";
-import { Calendar, GitFork, Star } from "lucide-react";
+import { Calendar, ExternalLink, GitFork, Star } from "lucide-react";
 import { Repo } from "../types";
 import Image from "next/image";
 
@@ -14,7 +14,7 @@ const RepoCard = ({ repo }: RepoCardInterface) => {
   return (
     <Card
       key={repo.id}
-      className="hover:shadow-lg transition-shadow duration-200"
+      className="hover:shadow-lg relative transition-shadow duration-200"
     >
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between">
@@ -84,6 +84,21 @@ const RepoCard = ({ repo }: RepoCardInterface) => {
               Fork
             </Button>
           </div>
+        </div>
+        <div className="absolute top-4 right-4">
+          <Button
+            size="sm"
+            variant="outline"
+            className="h-8 w-8 p-0 bg-transparent cursor-pointer"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              window.open(repo.html_url, "_blank");
+            }}
+            title="View on GitHub"
+          >
+            <ExternalLink className="h-4 w-4" />
+          </Button>
         </div>
       </CardContent>
     </Card>

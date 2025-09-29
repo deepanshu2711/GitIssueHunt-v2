@@ -9,6 +9,7 @@ export type Repo = {
   updated_at: string;
   topics: string[];
   isPrivate: boolean;
+  html_url: string;
   owner: {
     avatar_url: string;
   };
