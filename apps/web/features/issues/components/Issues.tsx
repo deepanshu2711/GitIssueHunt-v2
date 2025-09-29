@@ -16,7 +16,6 @@ import {
 import {
   Select,
   SelectContent,
-  SelectGroup,
   SelectItem,
   SelectTrigger,
   SelectValue,
@@ -42,44 +41,58 @@ const Issues = () => {
     );
   }, [totalPages, page]);
 
+  const formatCount = (count: number) => {
+    return count?.toLocaleString() || "0";
+  };
+
   if (isLoading) return <PageLoader />;
   const issues = data?.items || [];
-
-  const normalizeBody = (body: string) => body.replace(/\n{3,}/g, "\n\n");
 
   return (
     <section className="w-full flex flex-col gap-10">
       <Heading
         heading="Explore GitHub Issues"
-        description="Stay updated with the latest issues and activity across repositories."
+        description={`Stay updated with the latest issues and activity across repositories • ${formatCount(data?.total_count!)} issues found`}
       />
 
-      <div className="flex items-center justify-end gap-4">
-        <Select value={label} onValueChange={(value) => setLabel(value)}>
-          <SelectTrigger className="w-[250px]  font-semibold">
-            <SelectValue placeholder="Select label" />
-          </SelectTrigger>
-          <SelectContent>
-            {options.map((opt) => (
-              <SelectItem key={opt.value} value={opt.value}>
-                {opt.label}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+      <div className="flex items-center justify-between">
+        <div className="text-sm text-gray-600">
+          <span className="font-medium">
+            {formatCount(data?.total_count!)} issues
+          </span>
+          <span className="mx-2">•</span>
+          <span>
+            {lang.charAt(0).toUpperCase() + lang.slice(1)} • {label}
+          </span>
+        </div>
 
-        <Select value={lang} onValueChange={(value) => setLang(value)}>
-          <SelectTrigger className="w-[180px] font-semibold">
-            <SelectValue placeholder="Select language" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="javascript">JavaScript</SelectItem>
-            <SelectItem value="typescript">TypeScript</SelectItem>
-            <SelectItem value="python">Python</SelectItem>
-            <SelectItem value="java">Java</SelectItem>
-            <SelectItem value="go">Go</SelectItem>
-          </SelectContent>
-        </Select>
+        <div className="flex items-center gap-4">
+          <Select value={label} onValueChange={(value) => setLabel(value)}>
+            <SelectTrigger className="w-[250px] font-semibold">
+              <SelectValue placeholder="Select label" />
+            </SelectTrigger>
+            <SelectContent>
+              {options.map((opt) => (
+                <SelectItem key={opt.value} value={opt.value}>
+                  {opt.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+
+          <Select value={lang} onValueChange={(value) => setLang(value)}>
+            <SelectTrigger className="w-[180px] font-semibold">
+              <SelectValue placeholder="Select language" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="javascript">JavaScript</SelectItem>
+              <SelectItem value="typescript">TypeScript</SelectItem>
+              <SelectItem value="python">Python</SelectItem>
+              <SelectItem value="java">Java</SelectItem>
+              <SelectItem value="go">Go</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
       </div>
 
       {issues.length === 0 ? (
@@ -87,7 +100,7 @@ const Issues = () => {
           No issues found. Try changing filters or refresh.
         </p>
       ) : (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {issues.map((item: Issue, idx: number) => (
             <div key={idx}>
               <IssueCard item={item} />
@@ -95,6 +108,18 @@ const Issues = () => {
           ))}
         </div>
       )}
+
+      <div className="flex justify-between items-center text-sm text-gray-600">
+        <span>
+          Showing {(page - 1) * 30 + 1}-
+          {Math.min(page * 30, data?.total_count || 0)} of{" "}
+          {formatCount(data?.total_count)} issues
+        </span>
+        <span>
+          Page {page} of {totalPages}
+        </span>
+      </div>
+
       <Pagination>
         <PaginationContent>
           <PaginationItem>
