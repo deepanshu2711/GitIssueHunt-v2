@@ -1,10 +1,13 @@
 import { TanstackQueryProvider } from "./QueryClientProvider";
 import { AuthSessionProvider } from "./SessionProvider";
+import { ToasterProvider } from "./ToasterProvider";
 
 export const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
     <AuthSessionProvider>
-      <TanstackQueryProvider>{children}</TanstackQueryProvider>
+      <TanstackQueryProvider>
+        <ToasterProvider>{children}</ToasterProvider>
+      </TanstackQueryProvider>
     </AuthSessionProvider>
   );
 };
