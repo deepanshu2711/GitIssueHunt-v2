@@ -1,8 +1,7 @@
-import type z from "zod";
-import type { summarizeIssueSchema } from "../schemas/ai.schema.js";
 import type { Response } from "express";
-
-import { geminiAi } from "../lib/gemini.js";
+import type z from "zod";
+import { summarizeIssueStream } from "../providers/ai.provider.js";
+import type { summarizeIssueSchema } from "../schemas/ai.schema.js";
 
 type SummarizeIssueSchema = z.infer<typeof summarizeIssueSchema>;
 
@@ -18,17 +17,8 @@ export const summarizeIssue = async (
   res.setHeader("Cache-Control", "no-cache");
   res.setHeader("Connection", "keep-alive");
 
-  const data = await geminiAi.models.generateContentStream({
-    model: "gemini-2.5-flash",
-    contents: prompt,
-  });
-
-  for await (const chunk of data) {
-    const text = chunk.candidates?.[0]?.content?.parts?.[0]?.text || "";
-
-    if (text) {
-      res.write(`data: ${JSON.stringify({ text })}\n\n`);
-    }
+  for await (const text of summarizeIssueStream(prompt)) {
+    res.write(`data: ${JSON.stringify({ text })}\n\n`);
   }
 
   res.write("data: [DONE]\n\n");

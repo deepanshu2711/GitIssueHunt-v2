@@ -131,3 +131,8 @@ export type IsSavedIssue = {
   userId: string;
   url: string;
 };
+
+export type SummarizeIssuePayload = {
+  title: string;
+  description: string;
+};
