@@ -15,7 +15,7 @@ export const withRedisCache = async <T>(
 
     const result = await fetcher();
     await redis.set(key, result, {
-      ex: options?.ttlSeconds ?? 300,
+      ex: options?.ttlSeconds ?? 500,
     });
 
     return result;

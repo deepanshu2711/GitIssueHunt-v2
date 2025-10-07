@@ -1,15 +1,17 @@
-import axios from "axios";
+import type { GetRepoDetailsInputType } from "../schemas/repo.schema.js";
+import githubApi from "../providers/github.provider.js";
 
 export const getRepo = async (page: string) => {
-  console.log("page", page);
-  const response = await axios.get(
-    `https://api.github.com/search/repositories?q=stars:>1&page=${page}`,
-    {
-      headers: {
-        Authorization: `token ${process.env.GITHUB_SECRET}`,
-        Accept: "application/vnd.github+json",
-      },
-    },
+  const { data } = await githubApi.get(
+    `/search/repositories?q=stars:>1&page=${page}`,
   );
-  return response.data;
+  return data;
+};
+
+export const getRepoDetails = async ({
+  owner,
+  repo,
+}: GetRepoDetailsInputType) => {
+  const { data } = await githubApi.get(`/repos/${owner}/${repo}`);
+  return data;
 };

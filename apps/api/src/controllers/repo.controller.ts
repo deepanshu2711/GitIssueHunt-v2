@@ -15,3 +15,16 @@ export const getRepo = asyncHandler(async (req: Request, res: Response) => {
   );
   return successResponse(res, repos, "repos fetched succesfully");
 });
+
+export const getRepoDetails = asyncHandler(
+  async (req: Request, res: Response) => {
+    const { owner, repo } = req.params;
+    const cacheKey = `repo:${owner}:${repo}`;
+
+    const data = await withRedisCache(cacheKey, () =>
+      RepoService.getRepoDetails({ owner: owner!, repo: repo! }),
+    );
+
+    return successResponse(res, data, "Repo details fetched succesfully");
+  },
+);
