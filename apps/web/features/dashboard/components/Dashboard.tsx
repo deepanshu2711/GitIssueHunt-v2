@@ -8,6 +8,9 @@ import {
 import { Heading } from "@web/components/Heading";
 
 const Dashboard = () => {
+  const trackedRepos = Math.floor(Math.random() * 10) + 1;
+const savedIssues = Math.floor(Math.random() * 10) + 1;
+const starredIssues = Math.floor(Math.random() * 10) + 1;
   return (
     <div className="w-full flex flex-col gap-10">
       <Heading
@@ -23,7 +26,7 @@ const Dashboard = () => {
             <CardDescription>Total repositories you follow.</CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-semibold">3</p>
+            <p className="text-2xl font-semibold">{trackedRepos}</p>
           </CardContent>
         </Card>
         <Card>
@@ -32,7 +35,7 @@ const Dashboard = () => {
             <CardDescription>Pinned for later</CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-semibold">3</p>
+            <p className="text-2xl font-semibold">{savedIssues}</p>
           </CardContent>
         </Card>
         <Card>
@@ -41,7 +44,7 @@ const Dashboard = () => {
             <CardDescription>Issues you starred.</CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-semibold">3</p>
+            <p className="text-2xl font-semibold">{starredIssues}</p>
           </CardContent>
         </Card>
         <Card className="opacity-60 pointer-events-none">
