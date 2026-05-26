@@ -12,7 +12,7 @@ app.set("trust proxy", true);
 app.use(express.json());
 app.use(
   cors({
-    origin: "https://git-issue-hunt.deepxdev.com",
+    origin: process.env.ALLOWED_ORIGIN,
     credentials: true,
   }),
 );
@@ -25,7 +25,8 @@ app.use(notFound as any);
 // global error handler
 app.use(errorHandler as any);
 
-app.listen(5081, () => {
-  console.log(`🚀 API running at http://localhost:${5081}`);
+const PORT = process.env.PORT;
+app.listen(PORT, () => {
+  console.log(`🚀 API running at http://localhost:${PORT}`);
   connectDB();
 });
