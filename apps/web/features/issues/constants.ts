@@ -7,5 +7,4 @@ export const options: Option[] = [
   { value: "enhancement", label: "Enhancement" },
   { value: "documentation", label: "Documentation" },
   { value: "feature request", label: "Feature Request" },
-  { value: "gssoc25", label: "gssoc25" },
 ];
