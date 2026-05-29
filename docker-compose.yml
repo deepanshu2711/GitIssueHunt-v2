@@ -1,0 +1,11 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    container_name: git-issue-hunt-api
+    ports:
+      - "5081:5081"
+    env_file:
+      - apps/api/.env
+    restart: unless-stopped
