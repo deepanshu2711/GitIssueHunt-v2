@@ -1,7 +1,7 @@
 import { IssueDetails, IssueService } from "@web/features/issues";
 
 export async function generateMetadata({ params }) {
-  const { owner, repo, issueId } = params;
+  const { owner, repo, issueId } = await params;
   const issueData = await IssueService.getIssueDetails(owner, repo, issueId);
 
   const issue = issueData.data;
@@ -39,6 +39,7 @@ export async function generateMetadata({ params }) {
 
 export default async function Page({ params }) {
   const { owner, repo, issueId } = await params;
+  console.log(owner, repo, issueId);
   const issueData = await IssueService.getIssueDetails(owner, repo, issueId);
 
   return (
